@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1 class="cabeca">Todos os itens</h1>
+<div class="container">
+    <div class="row">
+        {% for tenis in teniss %}
+        <div class="col-3 " style="margin-top: 15px;">
+            <div class="card shadow-sm">
+                <img class="card-img-top img-fluid" src="{{  tenis.imagem.url  }}"
+                    alt="Imagem do post">
+                <div class="card-body">
+                    <h5 class="card-title">{{ tenis.nome }}</h5>
+                    <p class="card-text">{{ tenis.marca }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-muted">{{ tenis.valor }}</small>
+                        </div>
+                        <div>
+                            <a href="{% url 'detalhe_tenis' tenis.id  %}" class="btn btn-sm btn-outline-secondary">Ver
+                                Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

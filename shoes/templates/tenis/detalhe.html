@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div class="section" style="display: flex; flex-direction: row; margin-top: 40px; justify-content: space-around;">
+    <div class="left" style="display: flex; flex-direction: column; width: 700px; align-items: center; ">
+        <img style="height: 400px; width: 600px; border-radius: 10px;" src="{{  tenis.imagem.url  }}" alt="tenis">
+        <div style="width: 100%;" class="carrosel">
+            <div
+                style="display: flex;flex-direction: row; justify-content: space-evenly; gap: 10px; align-items: center;margin-top: 10px">
+                <div style="border: 3px; border-color: yellow; border-radius: 5px; border-style:outset;"><img
+                        style="width: 115px; height: 115px;" src="{{  tenis.imagem.url  }}" alt=""></div>
+                <div style="background-color: gray; width: 115px; height: 115px;"></div>
+                <div style="background-color: gray; width: 115px; height: 115px;"></div>
+                <div style="background-color: gray; width: 115px; height: 115px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="right"
+        style="display: flex; flex-direction: column; width: 500px; background-color: rgb(236, 236, 236); padding: 25px; border-radius: 10px; margin-right: 3%;">
+        <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: 46px;">{{ tenis.nome }}</h1>
+        <h3 style="color: rgb(59, 59, 59);font-family: 'Bebas Neue', sans-serif; font-size: 30px;">{{ tenis.marca }}</h3>
+
+        <div
+            style="background-color: black; height: 1px; width: 450px; align-self: center; margin-top: 25px; margin-bottom: 25px;">
+        </div>
+
+
+        <div style="display: flex; align-items: baseline;">
+            <h2>{{ tenis.valor }}</h2>
+            <p style="margin-left: 10px;">em até 10x no cartão</p>
+        </div>
+        <div style="margin-top: 30px;">
+            <h2 style="font-family: 'Teko', sans-serif; font-size: 40px;">Tamanhos</h2>
+            <div style="align-items: center; margin-left: 5%;">
+            <div style="width: 400px; display: flex;flex-direction: row; flex-wrap: wrap; justify-content: space-around; gap: 15px;">
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">28</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">29</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">30</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">31</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">32</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">33</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">34</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">35</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">36</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">37</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">38</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">39</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">40</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">41</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">42</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">43</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">44</p>
+                </div>
+                <div style="width: 30px; height: 30px; background-color: rgb(138, 138, 138); border-radius: 5px;">
+                    <p style="align-self: center; padding-left: 20%;">45</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div
+            style="background-color: black; height: 1px; width: 450px; align-self: center; margin-top: 25px; margin-bottom: 25px;">
+        </div>
+<div style="margin-left: 11%; margin-right: 11%; margin-top: 5px;">
+        <button style="font-family: 'Teko', sans-serif; background-color: orange; font-size: 40px; border-radius: 10px; width: 350px; height: 75px;">ADICIONAR AO CARRINHO</button>
+    </div>
+
+
+    </div>
+</div>
+
+{% endblock main %}

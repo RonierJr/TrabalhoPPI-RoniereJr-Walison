@@ -1,0 +1,40 @@
+{% extends 'base_admin.html' %}
+
+{% block main %}
+<div style="margin: 40px;">
+  <h2> Lista de Tenis</h2>
+
+  <a href="{% url 'tenis_criar' %}" class="btn btn-success mb-3">Novo Cadastro</a>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Marca</th>
+        <th>Valor</th>
+        <th>Imagem</th>
+        <th>Ações</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for tenis in teniss %}  
+      <tr>
+        <td>{{ tenis.nome }}</td>
+        <td>{{ tenis.marca }}</td>
+        <td>{{ tenis.valor }}</td>
+        <td><img class="img-fluid" src="{{  tenis.imagem.url  }}"
+            alt="Imagem do post"></td>
+        
+
+        <td>
+          <a href="{% url 'tenis_editar' id=tenis.id %}" class="btn btn-primary btn-sm">Editar</a>
+          <a href="{% url 'tenis_remover' id=tenis.id %}" class="btn btn-danger btn-sm">Remover</a>
+        </td>
+      </tr>
+      {% endfor %}
+    
+    </tbody>
+  </table>
+</div>
+{% endblock %}

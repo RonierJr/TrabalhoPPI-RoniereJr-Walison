@@ -1,0 +1,14 @@
+img{
+    width: 90px;
+    height: 90px;
+}
+
+nav{
+    height: 130px;
+}
+
+.cabeca{
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+}
