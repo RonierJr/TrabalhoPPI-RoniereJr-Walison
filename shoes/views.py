@@ -1,104 +1,103 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tenis, Marca
 from .forms import TenisForm, MarcaForm
+from .forms import TenisForm, MarcaForm
+from .forms import TenisForm, MarcaForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
+from django.urls import reverse_lazy
+from django.contrib import messages
 
 # Create your views here.
-def index(request):
-    teniss = Tenis.objects.all()
-    context ={
-       'teniss':teniss
-    }
-    return render(request, "tenis/index.html", context)
+class IndexHomeView(generic.ListView):
+    model = Tenis
+    template_name = "tenis/index.html"
+    paginate_by = 8
 
-def detalhe_tenis(request,id_tenis):
-    tenis = get_object_or_404(Tenis, id=id_tenis)
-    context={
-        'tenis':tenis,
-    }
-    return render(request,'tenis/detalhe.html',context)
+    
+class TenisDetailView( generic.DetailView):
+    model = Tenis
+    template_name = "tenis/detalhe.html" 
+
+class TenisListView( generic.ListView):
+    model = Tenis
+    template_name = "admin-tenis/lista.html"
+    paginate_by = 5
+
+class TenisDeleteView(generic.DeleteView):
+    model = Tenis
+    success_url = reverse_lazy("tenis_listar")
+    success_message = "Tenis excluído com sucesso!"
+
+class TenisCreateView( generic.CreateView):
+    model = Tenis
+    form_class = TenisForm
+    success_url = reverse_lazy("tenis_listar")
+    template_name = "admin-tenis/form.html"
+    success_message = "Reserva cadastrada com sucesso!"
+    error_message = "Erro ao cadastrar!"
+
+    def form_valid(self, form):
+        messages.success(self.request, "O Tenis foi cadastrada com sucesso")
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, self.error_message)
+        return super().form_invalid(form)
+
+class TenisUpdateView(generic.UpdateView):
+    model = Tenis
+    form_class = TenisForm
+    success_url = reverse_lazy("tenis_listar")
+    template_name = "admin-tenis/form.html"
+
+    def form_valid(self, form):
+        messages.success(self.request, "O tenis foi atualizada com sucesso")
+        return super().form_valid(form)
+
+class MarcaListView( generic.ListView):
+    model = Marca
+    template_name = "admin-marca/lista.html"
+    paginate_by = 3
+
+class MarcaCreateView( generic.CreateView):
+    model = Marca
+    form_class = MarcaForm
+    success_url = reverse_lazy("marca_listar")
+    template_name = "admin-marca/form.html"
+    success_message = "Reserva cadastrada com sucesso!"
+    error_message = "Erro ao cadastrar!"
+
+    def form_valid(self, form):
+        messages.success(self.request, "A marca foi cadastrada com sucesso")
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, self.error_message)
+        return super().form_invalid(form)
 
 
-def tenis_listar(request):
-    teniss = Tenis.objects.all()
-    context ={
-        'teniss':teniss
-    }
-    return render(request, "admin-tenis/lista.html",context)
+class MarcaDeleteView(generic.DeleteView):
+    model = Marca
+    success_url = reverse_lazy("marca_listar")
+    success_message = "Marca excluído com sucesso!"
 
-def tenis_remover(request, id):
-    tenis = get_object_or_404(Tenis, id=id)
-    tenis.delete()
-    return redirect('tenis_listar') # procure um url com o nome 'lista_aluno'
+class MarcaUpdateView(generic.UpdateView):
+    model = Marca
+    form_class = MarcaForm
+    success_url = reverse_lazy("marca_listar")
+    template_name = "admin-marca/form.html"
 
+    def form_valid(self, form):
+        messages.success(self.request, "A Marca foi atualizada com sucesso")
+        return super().form_valid(form)
+    
+class AdmHomeView(generic.TemplateView):
+    template_name = "tenis/administracao.html"
 
-def tenis_criar(request):
-    if request.method == 'POST':
-        form = TenisForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            form = TenisForm()
-    else:
-        form = TenisForm()
-
-    return render(request, 'admin-tenis/form.html', {'form': form})
-
-def tenis_editar(request,id):
-    tenis = get_object_or_404(Tenis,id=id)
-   
-    if request.method == 'POST':
-        form = TenisForm(request.POST, request.FILES, instance=tenis)
-
-        if form.is_valid():
-            form.save()
-            return redirect('tenis_listar')
-    else:
-        form = TenisForm(instance=tenis)
-
-    return render(request,'admin-tenis/form.html',{'form':form})
-
-
-def marca_listar(request):
-    marcas = Marca.objects.all()
-    context ={
-        'marcas':marcas
-    }
-    return render(request, "admin-marca/lista.html",context)
-
-def marca_criar(request):
-    if request.method == 'POST':
-        form = MarcaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('marca_listar')
-    else:
-        form = MarcaForm()
-
-    return render(request, 'admin-marca/form.html', {'form': form})
-
-def marca_remover(request, id):
-    marca = get_object_or_404(Marca, id=id)
-    marca.delete()
-    return redirect('marca_listar')
-
-def marca_editar(request,id):
-    marca = get_object_or_404(Marca,id=id)
-   
-    if request.method == 'POST':
-        form = MarcaForm(request.POST, instance=marca)
-
-        if form.is_valid():
-            form.save()
-            return redirect('marca_listar')
-    else:
-        form = MarcaForm(instance=marca)
-
-    return render(request,'admin-marca/form.html',{'form':form})
-
-def administracao(request):
-    total_tenis = Tenis.objects.count()
-    total_marca = Marca.objects.count()
-    context = {
-        'total_tenis' : total_tenis,
-        'total_marca' : total_marca,
-    }
-    return render(request, "tenis/administracao.html",context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_tenis"] = Tenis.objects.count()
+        context["total_marca"] = Marca.objects.count()
+        return context
+    

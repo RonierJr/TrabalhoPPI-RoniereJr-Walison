@@ -4,28 +4,81 @@
 <h1 class="cabeca">Todos os itens</h1>
 <div class="container">
     <div class="row">
-        {% for tenis in teniss %}
+        {% for object in object_list %} 
         <div class="col-3 " style="margin-top: 15px;">
-            <div class="card shadow-sm">
-                <img class="card-img-top img-fluid" src="{{  tenis.imagem.url  }}"
-                    alt="Imagem do post">
-                <div class="card-body">
-                    <h5 class="card-title">{{ tenis.nome }}</h5>
-                    <p class="card-text">{{ tenis.marca }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small class="text-muted">{{ tenis.valor }}</small>
-                        </div>
-                        <div>
-                            <a href="{% url 'detalhe_tenis' tenis.id  %}" class="btn btn-sm btn-outline-secondary">Ver
-                                Detalhes</a>
-                        </div>
+            <a href="{% url 'detalhe_tenis' object.id %}" style="text-decoration: none;">
+                <div class="card shadow-sm" style="height: 350px;">
+                    <img class="card-img-top img-fluid" src="{{  object.imagem.url  }}" alt="Imagem do post">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.nome }}</h5>
+                        <p class="card-text">{{ object.marca }}</p>
+                        <p style="padding-bottom: 0;" class="text-muted">R$ {{ object.valor }} <br>em 12x sem juros</p>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         {% endfor %}
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {% if page_obj.has_other_pages %}
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" style="color: rgb(57, 57, 255);" href="?page=1">
+                                    First
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" style="color: rgb(57, 57, 255);" href="?page={{ page_obj.previous_page_number }}">
+                                    Previous
+                                </a>
+                            </li>
+                        {% endif %}
+      
+                        {% for page_number in page_obj.paginator.page_range %}
+                            {% comment %}
+                                This conditional allows us to display up to 3 pages before and after the current page
+                                If you decide to remove this conditional, all the pages will be displayed
+      
+                                You can change the 3 to any number you want e.g
+                                To display only 5 pagination items, change the 3 to 2 (2 before and 2 after the current page)
+                            {% endcomment %}
+                            {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
+                                {% if page_obj.number == page_number %}
+                                    <li class="page-item active">
+                                        <a class="page-link" style="background-color: rgb(57, 57, 255);" href="?page={{ page_number }}">
+                                            {{ page_number }}
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" style="color: rgb(57, 57, 255);" href="?page={{ page_number }}">
+                                            {{ page_number }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+      
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" style="color: rgb(57, 57, 255);" href="?page={{ page_obj.next_page_number }}">
+                                    Next
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" style="color: rgb(57, 57, 255);" href="?page={{ page_obj.paginator.num_pages }}">
+                                    Last
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+      </div>
 </div>
 
 

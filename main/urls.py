@@ -15,22 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from shoes.views import index,detalhe_tenis,tenis_listar,tenis_remover,tenis_criar,tenis_editar,marca_listar,marca_criar,marca_remover,marca_editar,administracao
+from django.urls import path, include
+from shoes.views import IndexHomeView,TenisDetailView,TenisListView,TenisDeleteView,TenisCreateView,TenisUpdateView,MarcaListView,MarcaCreateView,MarcaDeleteView,MarcaUpdateView,AdmHomeView
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',index, name='index'),
-    path('tenis/<int:id_tenis>',detalhe_tenis,name='detalhe_tenis'),
-    path('tenis_listar',tenis_listar,name='tenis_listar'),
-    path('tenis/',tenis_criar,name='tenis_criar'),
-    path('tenis/editar/<int:id>/',tenis_editar,name='tenis_editar'),
-    path('tenis/remover/<int:id>/',tenis_remover,name='tenis_remover'),
-    path('marca_listar',marca_listar,name='marca_listar'),
-    path('marca/',marca_criar,name='marca_criar'),
-    path('marca/remover/<int:id>/',marca_remover,name='marca_remover'),
-    path('marca/editar/<int:id>/',marca_editar,name='marca_editar'),
-    path('administracao',administracao,name='administracao'),
+    path('accounts/', include('allauth.urls')),
+    path('',IndexHomeView.as_view(), name='index'),
+    path('tenis/<int:pk>/',TenisDetailView.as_view(),name='detalhe_tenis'),
+    path('tenis_listar',TenisListView.as_view(),name='tenis_listar'),
+    path('tenis/',TenisCreateView.as_view(),name='tenis_criar'),
+    path('tenis/editar/<int:pk>/',TenisUpdateView.as_view(),name='tenis_editar'),
+    path('tenis/remover/<int:pk>/',TenisDeleteView.as_view(),name='tenis_remover'),
+    path('marca_listar',MarcaListView.as_view(),name='marca_listar'),
+    path('marca/',MarcaCreateView.as_view(),name='marca_criar'),
+    path('marca/remover/<int:pk>/',MarcaDeleteView.as_view(),name='marca_remover'),
+    path('marca/editar/<int:pk>/',MarcaUpdateView.as_view(),name='marca_editar'),
+    path('administracao',AdmHomeView.as_view(),name='administracao'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

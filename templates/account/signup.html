@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% load i18n %}
+{% load account socialaccount %}
+
+
+{% block main %}
+<style>
+    :root {
+        /* Light */
+        --color-light-50: #f8fafc;
+
+        /* Dark */
+        --color-dark-50: #797984;
+        --color-dark-100: #312d37;
+        --color-dark-900: #000;
+
+        /* Purple */
+        --color-purple-50: #ffe600;
+        --color-purple-100: #e1f00c;
+        --color-purple-200: #d6f043;
+
+        /* Gradient */
+        --color-gradient: linear-gradient(90deg, var(--color-purple-50), var(--color-purple-100), var(--color-purple-200));
+    }
+
+    * {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    #background {
+        background: var(--color-gradient);
+
+    }
+
+    #container {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    #login_form {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        background-color: var(--color-light-50);
+        padding: 30px 40px;
+        border-radius: 8px;
+        gap: 30px;
+        box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.336);
+        animation: dark-to-light-background 0.3s ease-in-out;
+    }
+
+    /* Form Header */
+    #form_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #form_header h1 {
+        font-size: 40px;
+        position: relative;
+    }
+
+    #form_header h1::before {
+        position: absolute;
+        content: '';
+        width: 40%;
+        height: 3px;
+        background-color: var(--color-purple-50);
+        bottom: 10px;
+        border-radius: 5px;
+    }
+
+    #mode_icon {
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    /* Social Media */
+    #social_media {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #social_media img {
+        width: 30px;
+        height: 30px;
+    }
+
+    #social_media img:hover {
+        transform: scale(1.2);
+    }
+
+    /* Inputs */
+    #inputs {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-box>label {
+        font-size: 14px;
+        color: var(--color-dark-50);
+    }
+
+    .input-field {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 3px;
+        border-bottom: 1px solid var(--color-purple-50);
+        cursor: text;
+    }
+
+    .input-field i {
+        font-size: 18px;
+        cursor: text;
+        color: var(--color-dark-900);
+    }
+
+    .input-field input {
+        border: none;
+        width: 260px;
+        background-color: transparent;
+        font-size: 18px;
+        padding: 0px 5px;
+    }
+
+    .input-field input:focus {
+        outline: none;
+    }
+
+    /* Forgot password */
+    #forgot_password a {
+        text-decoration: none;
+        color: var(--color-dark-50);
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #forgot_password a:hover {
+        color: var(--color-purple-50);
+    }
+
+    /* Login Button */
+    #login_button {
+        border: none;
+        background: var(--color-gradient);
+        padding: 7px;
+        border-radius: 3px;
+        color: var(--color-light-50);
+        font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    #login_button:hover {
+        transform: scale(1.05);
+    }
+
+    .button{
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div id="background">
+    <div id="container">
+
+        <div id="login_form">
+            <!-- FORM HEADER -->
+            <div id="form_header">
+                <h1>Register</h1>
+            </div>
+
+            <!-- SOCIAL MEDIA LINKS -->
+            <div id="social_media">
+                <!-- FACEBOOK -->
+                <a href="#">
+                    <img src="{% static 'img/facebook.png' %}" alt="">
+                </a>
+
+                <!-- GOOGLE -->
+                <a href="#">
+                    <img src="{% static 'img/google.png' %}" alt="Google logo">
+                </a>
+
+                <!-- GITHUB -->
+                <a href="#">
+                    <img src="{% static 'img/github.png' %}" alt="">
+                </a>
+            </div>
+
+            <!-- NAME -->
+            <form class="signup-form" method="POST" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <div id="inputs">
+                    <div class="form-group input-box">
+                        <label for="id_username">{% trans "Usuário" %}</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="name" name="username" class="form-control" required>
+                        </div>
+                    </div>
+                      <div class="form-group input-box">
+                        <label for="id_email">{% trans "Email" %}</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="email" name="email" id="id_email" class="form-control" required>
+                        </div>
+                    </div>
+                      <div class="form-group input-box">
+                        <label for="id_password1">{% trans "Senha" %}</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="password" name="password1" class="form-control" required>
+                        </div>
+                    </div>
+                      <div class="form-group input-box">
+                        <label for="id_password2">{% trans "Confirme sua Senha" %}</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="password" name="password2" class="form-control" required>
+                        </div>
+                    </div>
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <div id="forgot_password">
+                        <a href="{% url 'account_login' %}">
+                            Já tem conta?
+                        </a>
+                    </div>
+                </div>
+                <div class="mb-3">
+                </div>
+                <div class="button">
+                <button id="login_button" type="submit">Sign up</button>
+                </div>
+            </form>
+</div>
+</div>
+    
+{% endblock %}

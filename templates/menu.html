@@ -16,7 +16,7 @@
     <nav class="navbar navbar-dark bg-dark d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
       <li class="nav-item dropdown">
-        <a class="dropdown" href="#" style=" padding: 20px;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="dropdown" href="#" style=" padding: 20px;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           <img style="width: 50px; height: 50px;" src="{% static 'img/menu-suspenso.png' %}" alt="menu">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -26,6 +26,8 @@
           <a class="dropdown-item" href="#">Sobre Nós</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'administracao' %}">Administração</a>
+          <a class="dropdown-item" href="{% url 'account_logout' %}">Sair</a>
+          
         </div>
       </li>
             <h1><a class="navbar-brand" href="{% url 'index' %}" ><img style="width: 170px; height: 50px;" src="{% static 'img/hype.png' %}" alt="Botina"></a></h1>
@@ -37,7 +39,7 @@
       <a style="padding: 20px;" href="#">
         <img style="width: 50px; height: 50px;" src="{% static 'img/carrinho-de-compras.png' %}" alt="carrinho">
       </a>
-      <a style="padding: 20px; margin-right: 20px;" href="#">
+      <a style="padding: 20px; margin-right: 20px;" href="{% url 'account_login' %}">
         <img style="width: 50px; height: 50px;" src="{% static 'img/perfil.png' %}" alt="perfil">
       </a>
     </div>

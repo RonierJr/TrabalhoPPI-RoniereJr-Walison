@@ -10,7 +10,7 @@ class Marca(models.Model):
 class Tenis (models.Model):
     nome = models.CharField(max_length=100)
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
-    valor = models.CharField(max_length=100)
+    valor = models.DecimalField(decimal_places=2, max_digits=10)
     imagem = models.ImageField(upload_to='tenisimg/')
 
     def __str__(self):

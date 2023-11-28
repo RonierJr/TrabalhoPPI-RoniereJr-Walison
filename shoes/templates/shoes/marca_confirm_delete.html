@@ -1,0 +1,21 @@
+<form action="{% url 'marca_remover' object.id %}" method="post">
+  {% csrf_token %}
+  <div class="modal" id="myModal-{{ object.pk }}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Confirmação de Exclusão</h1>
+        </div>
+
+        <div class="modal-body">
+          Deseja excluir o registro {{ object }}?
+          {{ form }}
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: center;">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

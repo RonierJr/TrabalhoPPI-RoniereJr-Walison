@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from decimal import Decimal
 from django import forms
 from .models import Marca,Tenis
 
@@ -22,3 +23,4 @@ class TenisForm(ModelForm):
             'valor': forms.TextInput(attrs={'class': 'form-control'}),
             'imagem': forms.FileInput(attrs={'class': 'form-control'}),  
         }
+        
