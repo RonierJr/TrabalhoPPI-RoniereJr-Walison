@@ -1,11 +1,12 @@
 {% extends 'base_admin.html' %}
 
 {% block main %}
-<div style="margin: 40px;">
-    <h2> Formulário de Marca</h2>
+<div class="form container mt-4">
+    <h2>Formulário de Marca</h2>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             {{ form.nome }}

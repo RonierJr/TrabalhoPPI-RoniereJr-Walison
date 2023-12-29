@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'shoes',
     'users',
+    'carts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    'django_filters',
 
 ]
 
@@ -84,12 +86,16 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+    "ENGINE": 'django.db.backends.sqlite3',
+    'NAME': BASE_DIR / 'banco/db.sqlite3',
+    "USER": "mysql",
+    "PASSWORD": "123456",
+    "HOST": "localhost",
+    "PORT": "3606",
     }
 }
-
+ 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -144,3 +150,5 @@ STATICFILES_DIR = [os.path.join(BASE_DIR, 'static'),]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MEDIA_URL = '/tenisimg/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'tenisimg')

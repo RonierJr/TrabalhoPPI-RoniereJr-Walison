@@ -1,0 +1,30 @@
+version: '3'
+
+volumes:
+  static_volume: {}
+  data_volume: {}
+  media_volume: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    volumes:
+      - static_volume:/home/app/staticfiles
+      - media_volume:/home/app/tenisimg
+      - data_volume:/home/banco/
+    command: /start
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+    volumes:
+      - static_volume:/home/app/staticfiles
+      - media_volume:/home/app/tenisimg
+    ports:
+      - 85:80
+    depends_on:
+      - django
+

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+<div class="container" style="margin: 40px;">
+    <style>
+        #status-pedido {
+
+            font-size: 20px;
+
+            background: #ccc;
+
+            color: #fff;
+
+            padding: 30px;
+
+            width: 100%;
+
+        }
+
+        @media screen and (min-width: 30em) {
+
+            .w-70 {
+
+                width: 70%;
+
+            }
+
+        }
+
+        #bloco-confirma {
+
+            border-radius: .5rem;
+
+            background: #e8fdf5;
+
+            padding: 2rem;
+
+            border: 1px solid #19a974;
+
+        }
+    </style>
+
+    <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: 50px;">Pedido Confirmado</h1>
+    <div class="w-70" style="padding-left: 1em; padding-right: 1em; margin-left: auto; margin-right: auto"
+        id="status-pedido-c">
+
+        <div id="bloco-confirma">
+
+            <span style="font-size: 2rem; color: #137752; font-weight: 600">Seu pedido foi realizado com sucesso.</span>
+
+            <p><span style="color: #137752; font-size: 2rem">Em breve você receberá um e-mail no endereço&nbsp;<strong
+                        id="email"></strong>&nbsp; com todos os detalhes do pedido.</span></p>
+            <p id="status-pedido" style="background: #4cae4c; color: #fff"><i class="fa fa-check-circle"></i><b>
+                    Pagamento Aprovado</b></p>
+        </div>
+
+    </div>
+
+    <div class="w-70" style="padding-left: 1em; padding-right: 1em; margin-left: auto; margin-right: auto"
+        id="status-pedido-c">
+        <p></p>
+
+        <div style="border-radius: .5rem; background: #fff; padding: 2rem; border: 1px solid #000;">
+            <p id="confirma-info" style="font-size: 25px; font-weight: 500;"><span>Informações Do Pedido</span></p>
+            <p><strong>Número do Pedido:</strong> {{ pedido.id }}</p>
+            <p><strong>Data do Pedido:</strong> {{ pedido.data_pedido }}</p>
+            <p><strong>Total do Pedido:</strong> R$ {{ total_pedido }}</p>
+            <p></p>
+            <p></p>
+            <p>* Os pedidos são enviados em até 3 dias após o pagamento.</p>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
+{% endblock %}

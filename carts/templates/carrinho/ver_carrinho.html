@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+<div class="container" style="margin: 40px;">
+    <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: 50px;">Meu Carrinho</h1>
+    <form method="post" action="{% url 'criar_pedido' %}">
+        {% csrf_token %}
+        <div style="display: flex; justify-content: space-between">
+
+        <div class="" style="border: 2px solid black; border-radius: 15px; max-width: 65%; width: 65%;">
+            <style>
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    border-radius: 10px;
+                    /* Adicione a propriedade de arredondamento desejada */
+                    overflow: hidden;
+                    border: 2px solid black;
+                    /* Certifique-se de que o overflow está oculto para manter a aparência arredondada */
+                }
+
+                thead {
+                    border: 2px solid black;
+                }
+
+                th,
+                td {
+                    padding: 15px;
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                }
+
+                th {
+                    background-color: #f2f2f2;
+                }
+            </style>
+            <table class="table" style="width: 100%; border-radius: 15px; border-collapse: collapse; overflow: hidden;">
+                <thead>
+                    <tr>
+                        <th scope="col">Produto</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Remover</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+
+                        <td style="display: flex;">
+                            <img class="img-fluid" src="{{  item.tenis.imagem.url  }}" alt="Imagem do post">
+                            <div style="display: flex; flex-direction: column; margin-left: 25px;">
+                                <p>{{ item.tenis.nome }}</p>
+                                <p
+                                    style="color: #fbb428; font-weight: 500; font-family: 'Bebas Neue', sans-serif; font-size: 20px;">
+                                    R$ {{ item.tenis.valor }}</p>
+                            </div>
+                        </td>
+                        <td>{{ item.quantidade }}</td>
+                        <td>R$ {{ item.subtotal|floatformat:2 }}</td>
+                        <style>
+                            .remover {
+                                margin: auto;
+                                width: 25px;
+                                height: 25px;
+                            }
+
+                            .remover:hover {
+                                background-color: rgba(255, 0, 0, 0.39);
+                                padding: 2px;
+                                border-radius: 100%;
+                                width: 25px;
+                                height: 25px;
+                            }
+                        </style>
+                        <td>
+                            <form method="post" action="{% url 'remover_do_carrinho' item.tenis.id %}">
+                                {% csrf_token %}
+                                <button type="submit" type="button" data-toggle="modal"
+                                    style="border: none; background-color: rgba(255, 255, 255, 0);"><img class="remover"
+                                        src="{% static 'img/delete.png' %}" alt=""></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div style="border: 2px solid black; border-radius: 15px;  width: 30%; display: flex; flex-direction: column; height: 300px; align-items: center; justify-content: space-around;">
+            <style>
+                /* Estilos para tornar a âncora semelhante a um botão */
+                .botao-link {
+                    display: inline-block;
+                    padding: 15px 40px;
+                    text-align: center;
+                    font-family: 'Barlow Condensed', sans-serif;
+                    font-weight: 700;
+                    font-size: 20px;
+                    text-decoration: none;
+                    background-color: #fbb428;
+                    /* Cor de fundo do botão */
+                    color: #002992;
+                    /* Cor do texto */
+                    border-radius: 10px;
+                    border-color: rgba(255, 222, 173, 0);
+                }
+                .flex{
+                    display: flex;
+                    justify-content: space-around;
+                }
+            </style>
+            <div class="flex">
+                <h3>Total</h3>
+                <div style="text-align: end; ">
+                <h3>R$ {{ total }}</h3>
+                <p>no pix ou 12x sem Juros</p>
+                </div>
+            </div>
+            <div style="border-bottom: solid; color: black; width: 70%; height: 1px;">
+            </div>
+            <div>
+                <input type="submit" class="botao-link" value="Confirmar Pedido">
+            </div>
+        </div>
+    </form>
+
+
+</div>
+</div>
+
+
+
+{% endblock %}

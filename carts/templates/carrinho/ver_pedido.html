@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+<div class="container" style="margin: 40px;">
+
+    <div>
+        <style>
+            .status-pendente {
+                text-align: left;
+            }
+
+            .status-em-processamento {
+                text-align: left;
+            }
+
+            .status-concluido {
+                text-align: left;
+            }
+        </style>
+        <div
+            class="{% if pedido.status == 'pendente' %}status-pendente{% elif pedido.status == 'em_processamento' %}status-em-processamento{% elif pedido.status == 'concluido' %}status-concluido{% endif %}">
+            <h1 style="font-family: 'Bebas Neue', sans-serif;">{{ pedido.get_status_display }}</h1>
+            <p style="font-size: 20px;">
+                {% if pedido.status == 'pendente' %}Aguardando confirmação de pagamento, pode demorar um pouco.{% elif pedido.status == 'em_processamento' %}Se você não receber o pedido em 30 dias, poderá abrir uma disputa. Se houver algo errado com seu item, você pode abrir uma disputa em até 15 dias após a confirmação do recebimento.{% elif pedido.status == 'concluido' %}Se o item que você recebeu estiver com defeito ou não estiver conforme descrito,
+                você pode abrir uma disputa dentro de 15 dias do recebimento.{% endif %}</p>
+        </div>
+
+    </div>
+
+    <div style="margin-top: 40px;">
+        <h2 style="font-family: 'Bebas Neue', sans-serif;">Detalhes do Pedido</h2>
+        <ul style="list-style: none; font-size: 20px;">
+            <li><strong>Número do Pedido:</strong> {{ pedido.id }}</li>
+            <li><strong>Data do Pedido:</strong> {{ pedido.data_pedido }}</li>
+            <li><strong>Forma de Pagamento:</strong> Pix</li>
+            <li><strong>Total do Pedido:</strong> {{ total_pedido }}</li>
+        </ul>
+    </div>
+    <div>
+        <h2 style="font-family: 'Bebas Neue', sans-serif;">Itens do Pedido</h2>
+
+            {% for item in pedido.items.all %}
+            <div style="display: flex; justify-content: space-between; width: 60%; margin-left: 10px; margin-bottom: 10px;">
+                <div style="display: flex;">
+                    <img style="height: 100px; width: 100px; margin-right: 10px;" src="{{ item.tenis.imagem.url }}" alt="">
+                    <div style="display: flex; flex-direction: column;">
+                        <p style="font-size: 20px;">{{ item.tenis.nome }}</p>
+                        <p>{{ item.tenis.valor }} x{{ item.quantidade }}</p>
+                    </div>
+                </div>
+                    <p>Subtotal: {{ item.subtotal }}</p>
+                
+            </div>
+            {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

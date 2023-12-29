@@ -1,0 +1,28 @@
+{% extends 'base_admin.html' %}
+
+{% block main %}
+<div class="form container mt-4">
+    <h2>Formulário de Pedido</h2>
+
+    <form method="post">
+        {% csrf_token %}            
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            {{ form.status }}
+        </div>
+
+        <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <strong>Erro!</strong> Corrija os seguintes erros.
+        <ul>
+            {% for error in form.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+</div>
+{% endblock %}
