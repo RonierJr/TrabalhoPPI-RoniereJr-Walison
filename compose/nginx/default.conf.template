@@ -16,7 +16,7 @@ server {
     location /static/ {
         alias /home/app/staticfiles/;
     }
-    location /midia/ {
+    location /tenisimg/tenisimg/ {
         alias /home/app/tenisimg/;
     }
 

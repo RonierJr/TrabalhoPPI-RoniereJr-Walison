@@ -13,7 +13,7 @@ services:
     volumes:
       - static_volume:/home/app/staticfiles
       - media_volume:/home/app/tenisimg
-      - data_volume:/home/banco/
+      - data_volume:/home/app/banco/
     command: /start
 
   nginx:
@@ -27,4 +27,4 @@ services:
       - 85:80
     depends_on:
       - django
-
+      

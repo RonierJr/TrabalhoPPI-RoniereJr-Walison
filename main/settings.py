@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9bv9b*84_-nyb!@%rk_st4&goi1qca*-^k17gfsu30#@ch3tgi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGIN = ['http://localhost:85']
 
 
 # Application definition
@@ -89,10 +90,6 @@ DATABASES = {
     "default": {
     "ENGINE": 'django.db.backends.sqlite3',
     'NAME': BASE_DIR / 'banco/db.sqlite3',
-    "USER": "mysql",
-    "PASSWORD": "123456",
-    "HOST": "localhost",
-    "PORT": "3606",
     }
 }
  
@@ -145,7 +142,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIR = [os.path.join(BASE_DIR, 'static'),]
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
